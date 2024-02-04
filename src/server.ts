@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import apicache from 'apicache'
-import * as PresentationController from '@controllers/PresentationController'
-import * as UserController from '@controllers/UserController'
+import * as PresentationController from './controllers/PresentationController'
+import * as UserController from './controllers/UserController'
 
 const app = express()
 const cache = apicache.middleware

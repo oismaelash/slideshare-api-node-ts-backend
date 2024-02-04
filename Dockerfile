@@ -26,7 +26,7 @@ EXPOSE 3333
 CMD ["npm", "start"]
 
 # Make image docker
-# docker build -t oismaelash/slideshare-api .
+# docker build -t ismaelnascimento/slideshare-api .
 
 # Run docker container on detached mode
-# docker run -p 3333:3333 -d oismaelash/slideshare-api
+# docker run -p 3333:3333 -d ismaelnascimento/slideshare-api

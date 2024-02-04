@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import puppeteer from 'puppeteer'
 import { PresentationData, PresentationsResponse } from 'src/types'
-import { PresentationType } from 'src/types/presentation'
-import { SLIDESHARE_URL } from 'src/utils/constants'
+import { PresentationType } from '../types/presentation'
+import { SLIDESHARE_URL } from '../utils/constants'
 
 export async function getAll (username: string): Promise<PresentationsResponse> {
   const browser = await puppeteer.launch({

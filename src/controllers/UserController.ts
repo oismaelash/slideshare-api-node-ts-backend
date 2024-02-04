@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import puppeteer from 'puppeteer'
-import { PresentationsResponse, UserResponse } from 'src/types'
-import { SLIDESHARE_URL } from 'src/utils/constants'
+import { UserResponse } from '../types'
+import { SLIDESHARE_URL } from '../utils/constants'
 
 export async function getUser (username: string): Promise<UserResponse> {
   const browser = await puppeteer.launch({
