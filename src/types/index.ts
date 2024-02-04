@@ -1,4 +1,10 @@
 export type PresentationsResponse = {
+    data?: Array<PresentationData>
+    error?: any
+    count?: number
+}
+
+export type PresentationData = {
     title: string
     pageUrl: string
     thumbnailUrl: string
