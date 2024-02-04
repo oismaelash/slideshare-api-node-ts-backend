@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer'
 import { PresentationsResponse, UserResponse } from 'src/types'
 import { SLIDESHARE_URL } from 'src/utils/constants'
 
-export async function getUser (username: string): Promise<any> {
+export async function getUser (username: string): Promise<UserResponse> {
   const browser = await puppeteer.launch({
     headless: 'new',
     args: ['--no-sandbox']

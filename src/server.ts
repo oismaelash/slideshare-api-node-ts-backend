@@ -1,14 +1,14 @@
 import express from 'express'
 import cors from 'cors'
-// import apicache from 'apicache'
+import apicache from 'apicache'
 import * as PresentationController from '@controllers/PresentationController'
 import * as UserController from '@controllers/UserController'
 
 const app = express()
-// const cache = apicache.middleware
+const cache = apicache.middleware
 
 app.use(cors())
-// app.use(cache('1 minutes'))
+app.use(cache('1 day'))
 
 app.get('/', (request, response) => {
   return response.json({ message: 'api works!' })

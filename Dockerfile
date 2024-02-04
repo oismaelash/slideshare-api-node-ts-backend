@@ -29,4 +29,4 @@ CMD ["npm", "start"]
 # docker build -t oismaelash/slideshare-api .
 
 # Run docker container on detached mode
-# docker run -p 3000:3000 -d oismaelash/slideshare-api
+# docker run -p 3333:3333 -d oismaelash/slideshare-api
