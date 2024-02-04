@@ -7,6 +7,9 @@ https://hub.docker.com/r/ismaelnascimento/slideshare-api
 # Amazon ECR Public Gallery
 https://gallery.ecr.aws/a4c6h2l0/ismaelnascimento/slideshare-api
 
+# NPM
+https://www.npmjs.com/package/slideshare-ash
+
 # About
 
 Slideshare API
