@@ -2,6 +2,7 @@
 import puppeteer from 'puppeteer'
 import { PresentationData, PresentationsResponse } from 'src/types'
 import { PresentationType } from 'src/types/presentation'
+import { SLIDESHARE_URL } from 'src/utils/constants'
 
 export async function getAll (username: string): Promise<PresentationsResponse> {
   try {
@@ -15,7 +16,7 @@ export async function getAll (username: string): Promise<PresentationsResponse> 
     const presentationsData: PresentationData[] = []
 
     while (hasContent) {
-      const URL = `https://www.slideshare.net/${username}/presentations/${paginationIndex}`
+      const URL = `${SLIDESHARE_URL}/${username}/presentations/${paginationIndex}`
       console.log(URL)
       await page.goto(URL, {
         waitUntil: 'load',
@@ -44,7 +45,7 @@ export async function getAll (username: string): Promise<PresentationsResponse> 
             title,
             pageUrl,
             thumbnailUrl,
-            userUrl: `https://www.slideshare.net/${username}`
+            userUrl: `${SLIDESHARE_URL}/${username}`
           }
 
           presentationsData.push(presentation)
@@ -99,7 +100,7 @@ export async function getOne (url: string): Promise<PresentationsResponse> {
       pageUrl: scriptJson.props.pageProps.layout.fullPath,
       thumbnailUrl: scriptJson.props.pageProps.slideshow.thumbnail,
       title: scriptJson.props.pageProps.slideshow.title,
-      userUrl: `https://www.slideshare.net/${scriptJson.props.pageProps.slideshow.user.login}`,
+      userUrl: `${SLIDESHARE_URL}/${scriptJson.props.pageProps.slideshow.user.login}`,
       categories: scriptJson.props.pageProps.slideshow.categories.map(category => category.name),
       createdAt: scriptJson.props.pageProps.slideshow.createdAt,
       description: scriptJson.props.pageProps.slideshow.description,

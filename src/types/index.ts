@@ -38,7 +38,6 @@ export type UserResponse = {
     title: string
     url: string
     imageUrl: string
-    description: string
     uploadCount: number
     presentationsUrl: string
     followersCount: number
