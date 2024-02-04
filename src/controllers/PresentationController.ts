@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import puppeteer from 'puppeteer'
-// eslint-disable-next-line no-unused-vars
-import { PresentationData, PresentationsResponse as PresentationResponse } from 'src/types'
+import { PresentationData, PresentationsResponse } from 'src/types'
+import { PresentationType } from 'src/types/presentation'
 
-export async function getAll (username: string): Promise<PresentationResponse> {
+export async function getAll (username: string): Promise<PresentationsResponse> {
   try {
     const browser = await puppeteer.launch({
       headless: 'new',
@@ -42,7 +43,8 @@ export async function getAll (username: string): Promise<PresentationResponse> {
           const presentation: PresentationData = {
             title,
             pageUrl,
-            thumbnailUrl
+            thumbnailUrl,
+            userUrl: `https://www.slideshare.net/${username}`
           }
 
           presentationsData.push(presentation)
@@ -56,7 +58,7 @@ export async function getAll (username: string): Promise<PresentationResponse> {
 
     browser.close()
 
-    const response: PresentationResponse = {
+    const response: PresentationsResponse = {
       data: presentationsData,
       count: presentationsData.length
     }
@@ -65,7 +67,7 @@ export async function getAll (username: string): Promise<PresentationResponse> {
   } catch (error) {
     console.error(error)
 
-    const response: PresentationResponse = {
+    const response: PresentationsResponse = {
       error: error
     }
 
@@ -73,6 +75,51 @@ export async function getAll (username: string): Promise<PresentationResponse> {
   }
 }
 
-// export async function getOne (url: string): Promise<PresentationData> {
-//   return {}
-// }
+export async function getOne (url: string): Promise<PresentationsResponse> {
+  try {
+    const browser = await puppeteer.launch({
+      headless: 'new',
+      args: ['--no-sandbox']
+    })
+    const page = await browser.newPage()
+    await page.goto(url, {
+      waitUntil: 'load',
+      timeout: 0
+    })
+
+    const scriptRaw = await (
+      await page.$('#__NEXT_DATA__')
+    ).evaluate((e) => e.textContent)
+
+    browser.close()
+
+    const scriptJson = JSON.parse(scriptRaw) as PresentationType
+
+    const presentationData: PresentationData = {
+      pageUrl: scriptJson.props.pageProps.layout.fullPath,
+      thumbnailUrl: scriptJson.props.pageProps.slideshow.thumbnail,
+      title: scriptJson.props.pageProps.slideshow.title,
+      userUrl: `https://www.slideshare.net/${scriptJson.props.pageProps.slideshow.user.login}`,
+      categories: scriptJson.props.pageProps.slideshow.categories.map(category => category.name),
+      createdAt: scriptJson.props.pageProps.slideshow.createdAt,
+      description: scriptJson.props.pageProps.slideshow.description,
+      likeCount: scriptJson.props.pageProps.slideshow.likes,
+      slides: scriptJson.props.pageProps.slideshow.slideImages.map(slide => slide.baseUrl),
+      viewsCount: scriptJson.props.pageProps.slideshow.views
+    }
+
+    const response: PresentationsResponse = {
+      data: presentationData
+    }
+
+    return response
+  } catch (error) {
+    console.error(error)
+
+    const response: PresentationsResponse = {
+      error: error
+    }
+
+    return response
+  }
+}

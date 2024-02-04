@@ -26,11 +26,12 @@ app.get('/presentations/:username', async (request, response) => {
   return response.json(presentations)
 })
 
-// app.get('/presentations/:url', async (request, response) => {
-//   const url = request.params.url
-//   const presentation = await PresentationController.getOne(url)
-//   return response.json(presentation)
-// })
+app.get('/presentations', async (request, response) => {
+  const url = request.query.url.toString()
+  console.log(url)
+  const presentation = await PresentationController.getOne(url)
+  return response.json(presentation)
+})
 
 const PORT = process.env.PORT ?? 3333
 

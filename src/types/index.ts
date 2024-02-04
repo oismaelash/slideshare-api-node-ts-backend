@@ -1,5 +1,5 @@
 export type PresentationsResponse = {
-    data?: Array<PresentationData>
+    data?: Array<PresentationData> | PresentationData
     error?: any
     count?: number
 }
@@ -8,6 +8,13 @@ export type PresentationData = {
     title: string
     pageUrl: string
     thumbnailUrl: string
+    userUrl: string
+    description?: string
+    categories?: Array<string>
+    createdAt?: string
+    likeCount?: number
+    viewsCount?: number
+    slides?: Array<string>
 }
 
 export type PersonalInformation = {
